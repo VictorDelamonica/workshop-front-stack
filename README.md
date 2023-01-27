@@ -2,7 +2,7 @@
 <div align="center">
 <h1>Workshop Front</br>Building a good looking weather app</h1>
 <a href="https://indigen.com/"><img height="75" alt="Indigen Solutions" src="assets/epitech_logo.png" /></a>
-</div></br>
+</div></br></br>
 
 
 
@@ -48,19 +48,19 @@ _/!\ This workshop doesn't require extensive knowledge, though it would be easie
 1. Clone this repository
 2. Open a terminal in the project folder
 3. Install project with `vue` (Vue-CLI)
-  * Select `Default ([Vue 3] babel, eslint)`
+    * Select `Default ([Vue 3] babel, eslint)`
 ```bash
 vue create weather-app
 cd weather-app
 ```
-4. Install `Quasar` and `Sass` dependencies
-   * Here are the options I chose:</br><img src="assets/quasar_prefs.png" alt="Dont hesitate to aks for help if you don't know what to choose when configuring" width="500px" />
-   * Both `material icon` and `fontawesome` are very good icon libraries.
+1. Install `Quasar` and `Sass` dependencies
+    * Here are the options I chose:</br><img src="assets/quasar_prefs.png" alt="Dont hesitate to aks for help if you don't know what to choose when configuring" width="500px" />
+    * Both `material icon` and `fontawesome` are very good icon libraries.
 ```bash
 vue add quasar
 ```
-5. Add `Axios`
-   * If you get this error: `error  'options' is defined but never used` go to [axios.js](weather-app/src/plugins/axios.js) to line 43 and add `options;` on the first line of the function.
+1. Add `Axios`
+    * If you get this error: `error  'options' is defined but never used` go to [axios.js](weather-app/src/plugins/axios.js) to line 43 and add `options;` on the first line of the function.
 ```bash
 vue add axios
 ```
@@ -83,22 +83,22 @@ You just got bombarded with files and folders, don't worry, we will go trough th
 ```c
 ├── public           // This folder just defines the index.html file and some related elements.
 ├── src              // [see below]
-├── .gitignore       // You should know this one, it defines files which you don't wan't to push.
+├── .gitignore       // It defines files which you don't wan't to push.
 ├── babel.config.js  // Babel is the transpiler in question that translates Vue.js to JavaScript. You can configure it here.
-├── jsconfig.json    // This file defines configuration for javascript. This is not too known but you can customize your JS.
-├── package.json     // This file defined the project. We can find useful information and packages here.
-├── vue.config.js    // This file defines configuration for Vue.js. You can customize your Vue.js here.
-└── yarn.lock        // This file defines some information about package versions. You don't need to worry about it.
+├── jsconfig.json    // Defines configuration for javascript. This is not too known but you can customize your JS.
+├── package.json     // Defined the project. We can find useful information and packages here.
+├── vue.config.js    // Defines configuration for Vue.js. You can customize your Vue.js here.
+└── yarn.lock        // Defines some information about package versions. You don't need to worry about it.
 ```
 
 ### The `src` folder
 ```c
 ├── assets           // Images and any other assets are defined here
-├── components       // All the components of the project are defined here, components are the building blocks of app.
+├── components       // All the components of the project are defined here, components are the building blocks of an app.
 ├── styles           // Stylesheets are defined here. We will be using Sass. You can also find default quasar styles.
 ├── App.vue          // This is the main file of the project.
 ├── main.js          // This is the entry point of the project. It defines the Vue.js instance and links modules.
-└── quasar-user-options.js  // This file defines the options for Quasar. You can customize it here.
+└── quasar-user-options.js  // Defines the options for Quasar. You can customize it here.
 ```
 
 As you can see this is pretty close to a basic JS/CSS/HTML project with extra steps.
