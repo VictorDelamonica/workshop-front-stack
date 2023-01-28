@@ -2,9 +2,9 @@
 <div align="center">
 <h1>Workshop Front</br>Building a good looking weather app</h1>
 <a href="https://indigen.com/"><img height="75" alt="Indigen Solutions" src="assets/epitech_logo.png" /></a>
-</div></br></br>
+</div>
 
-
+</br></br>
 
 ## Before starting
 
@@ -20,7 +20,7 @@ __/!\ Remove the folder `node_modules/` before compressing and sending please__
 
 Any work you do needs to be in the request, if you don't do this or didn't advance into the project at all you will be marked absent.
 
-
+<br/><br/>
 
 ## Introduction
 
@@ -32,7 +32,7 @@ In this exercice we will be using the following technologies:
 We will be using the [openweathermap.org](https://openweathermap.org/) API. It's freely available (or at least for our needs).
 We will get weather information and display it in a nice way using the tools previously mentioned.
 
-
+</br></br>
 
 ## Getting started
 
@@ -57,74 +57,75 @@ We will get weather information and display it in a nice way using the tools pre
 1. Install project with Vite CLI
     * Select `Vue` as the framework
     * Select `JavaScript` as the variant
-```bash
-npm init vite@latest weather-app
-cd weather-app
-```
+    ```bash
+    npm init vite@latest weather-app
+    cd weather-app
+    ```
 2. Install `Quasar` and `Sass` dependencies
-```bash
-npm install quasar @quasar/extras
-npm install -D @quasar/vite-plugin sass@1.32.0
-```
-1. Go to `weather-app/src/main.js` and paste the following:
-```js
-import { createApp } from 'vue'
+    ```bash
+    npm install quasar @quasar/extras
+    npm install -D @quasar/vite-plugin sass@1.32.0
+    ```
+3. Go to `weather-app/src/main.js` and paste the following:
+    ```js
+    import { createApp } from 'vue'
 
-import { Quasar } from 'quasar'
-import quasarIconSet from 'quasar/icon-set/svg-fontawesome-v6'
-import '@quasar/extras/material-icons/material-icons.css'
-import '@quasar/extras/fontawesome-v6/fontawesome-v6.css'
-import 'quasar/src/css/index.sass'
+    import { Quasar } from 'quasar'
+    import quasarIconSet from 'quasar/icon-set/svg-fontawesome-v6'
+    import '@quasar/extras/material-icons/material-icons.css'
+    import '@quasar/extras/fontawesome-v6/fontawesome-v6.css'
+    import 'quasar/src/css/index.sass'
 
-import App from './App.vue'
+    import App from './App.vue'
 
-const app = createApp(App)
+    const app = createApp(App)
 
-app.use(Quasar, {
-  plugins: {},
-  iconSet: quasarIconSet,
-})
-app.mount('#app')
-```
+    app.use(Quasar, {
+      plugins: {},
+      iconSet: quasarIconSet,
+    })
+    app.mount('#app')
+    ```
 4. Go to `weather-app/vite.config.js` and paste the following:
-```js
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import { quasar, transformAssetUrls } from '@quasar/vite-plugin'
+    ```js
+    import { defineConfig } from 'vite'
+    import vue from '@vitejs/plugin-vue'
+    import { quasar, transformAssetUrls } from '@quasar/vite-plugin'
 
-export default defineConfig({
-  plugins: [
-    vue({
-      template: { transformAssetUrls }
-    }),
-    quasar({
-      sassVariables: 'src/styles/quasar-variables.sass'
-    }),
-  ],
-})
-```
+    export default defineConfig({
+      plugins: [
+        vue({
+          template: { transformAssetUrls }
+        }),
+        quasar({
+          sassVariables: 'src/styles/quasar-variables.sass'
+        }),
+      ],
+    })
+    ```
 5. Create a new folder named `styles` in `weather-app/src/` and create a new file named `quasar-variables.sass` in it:
-```scss
-$primary   : #1976D2
-$secondary : #26A69A
-$accent    : #9C27B0
+    ```scss
+    $primary   : #1976D2
+    $secondary : #26A69A
+    $accent    : #9C27B0
 
-$dark      : #1D1D1D
+    $dark      : #1D1D1D
 
-$positive  : #21BA45
-$negative  : #C10015
-$info      : #31CCEC
-$warning   : #F2C037
-```
+    $positive  : #21BA45
+    $negative  : #C10015
+    $info      : #31CCEC
+    $warning   : #F2C037
+    ```
 
 6. Run the project to check if everything is okay.
-```bash
-npm run dev
-```
+    ```bash
+    npm run dev
+    ```
 
 After building and [transpiling](https://www.wikiwand.com/en/Source-to-source_compiler), vite will host the project on a local server. You can access it by going to [localhost:5173](http://localhost:5173) in your browser.
 
 
+<br/><br/>
 
 ## Getting to know the architecture
 
@@ -149,7 +150,7 @@ You just got bombarded with files and folders, don't worry, we will go trough th
 └── style.css        // Stylesheets are defined here. We will be using Sass. You can also find default quasar styles.
 ```
 
-
+</br></br>
 
 ## Let's get to work
 
@@ -215,9 +216,10 @@ export default {
 
 This is the base code on which you will work, launch it with vite `npm run dev` and put the name of a city in the search bar. You should see the weather data of the city you entered.
 
+</br></br>
+
 ## Let's make it look good
 
-Now that you have the data, let's make it look good. We will use the [Quasar framework](https://quasar.dev/).
 Quasar components always start with `q-` they are just html blocks that have been pre-coded with all the essential customisations.
 
 Start by building your `<template>` if you want to insert a variable for example data.something inside the `<template>` you can use `<div>{{ data.something }}</div>`.
@@ -236,11 +238,10 @@ div
   height: 200px
 ```
 
-Take a look at what are components, you might be able to re-use code and make your code more readable.
-
 ### First component
 
-To teach you about componets we will do a first one together.
+To teach you about componets we will do a first one together. They will enable you to re-use code and make your code more readable.
+
 Let's create a `myStat.vue` file in the `src/components/` folder (This component will show a numerical value and an icon):
 ```html
 <template><template>
@@ -316,7 +317,7 @@ Now we can use it in our `<template>`:
 ```
 
 You should get something like this:\
-<img src="./assets/app.png" width="300" />
+<img src="./assets/app.jpg" width="300" />
 
 Keep going, your objective now is to make it look good, you are free to use anything you want to achieve this goal.
 
