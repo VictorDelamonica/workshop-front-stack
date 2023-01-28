@@ -244,7 +244,7 @@ To teach you about componets we will do a first one together. They will enable y
 
 Let's create a `myStat.vue` file in the `src/components/` folder (This component will show a numerical value and an icon):
 ```html
-<template><template>
+<template>
   <div class="my-temp q-ma-md column justify-end items-center bg-white">
     <div class="my-temp__value">
       {{ value }}°C
