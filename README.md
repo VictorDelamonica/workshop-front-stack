@@ -8,70 +8,121 @@
 
 ## Before starting
 
-<div style="color: red; font-size: 1.2em">
-If you want to be present you need to fork this repository: <img src="assets/git/fork.png" alt="" height="32px" /> At the end of the hour you need to create a pull request by pressing this button on your github fork: <img src="assets/git/contribute.png" alt="" height="32px" />, and open the pull request <img src="assets/git/open_pull.png" alt="" height="32px" />.
+If you want to be present you need send an email to philippe1.cheype@epitech.eu with the following object:
+```
+[WORKSHOP-FRONT] Nom Prénom
+```
+__/!\ Put your real firstname and lastname__
 
-Now put your real firstname and lastname in the title of the pull request <img src="assets/git/name_pull.png" alt="" height="32px" /> and finally create it <img src="assets/git/create_pull.png" alt="" height="32px" />
+And in the mail share a .zip or .tar.gz file with the contents of your repository.\
+__/!\ Remove the folder `node_modules/` before compressing and sending please__
+
 
 Any work you do needs to be in the request, if you don't do this or didn't advance into the project at all you will be marked absent.
-</div>
+
 
 
 ## Introduction
 
 In this exercice we will be using the following technologies:
-- [Vue.js](https://vuejs.org/) -> JavaScript <u>[framework](https://www.wikiwand.com/en/Software%20framework)</u> to make our lives easier by implementing very useful features and patterns.
-- [Quasar](https://quasar.dev/) -> A front-end framework that has a lot of <u>[components](https://developer.mozilla.org/en-US/docs/Web/Web_Components)</u> already implemented and ready to use.
+- [Vue.js](https://vuejs.org/) -> JavaScript [framework](https://www.wikiwand.com/en/Software%20framework) to make our lives easier by implementing very useful features and patterns.
+- [Quasar](https://quasar.dev/) -> A front-end framework that has a lot of [components](https://developer.mozilla.org/en-US/docs/Web/Web_Components) already implemented and ready to use.
 - [Sass](https://sass-lang.com/) -> a CSS preprocessor that allows us to write CSS with more features and more readable stylesheets.
-- [Axios](https://github.com/axios/axios) -> HTTP client for the browser and node.js that allows us to make HTTP requests.
 
 We will be using the [openweathermap.org](https://openweathermap.org/) API. It's freely available (or at least for our needs).
 We will get weather information and display it in a nice way using the tools previously mentioned.
-
-_/!\ This workshop doesn't require extensive knowledge, though it would be easier if you are already familiar with Javascript. We are going to go trough every step with you, if at any time you don't understand something don't hesitate to ask for help._
 
 
 
 ## Getting started
 
+### Get API access
+
+1. Go to [openweathermap.org/price](https://openweathermap.org/price) and create an account.
+2. When signed-in click on your name at the top right and click on `My API keys`
+3. You will find a `Key`, keep this tab open we will need that key later.
+4. You can find the API documentation that we will use [here](https://openweathermap.org/current).
+    * Here is the exact request we will use, but feel free to explore the API: `https://api.openweathermap.org/data/2.5/weather?q={city name}&units=metric&appid={API key}`
+    * You need to replace values in brackets `{}` with the corresponding data
+
+
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/en/) -> JavaScript <u>[runtime environment](https://www.wikiwand.com/en/Runtime_system)</u> that allows us to run JavaScript code outside of a browser.
+- [Node.js](https://nodejs.org/en/) -> JavaScript [runtime environment](https://www.wikiwand.com/en/Runtime_system) that allows us to run JavaScript code outside of a browser.
   + Do `node -v` to check if it's installed.
-- [yarn](https://yarnpkg.com/) -> <u>[Package manager](https://www.wikiwand.com/en/Package_manager)</u> that allows us to install and manage dependencies. (You can use npm instead)
-  + Do `yarn -v` to check if it's installed.
-- [Vue CLI](https://cli.vuejs.org/) -> Command line interface that allows us to create and manage Vue.js projects.
-  + Do `vue --version` to check if it's installed.
 
-### Installation
 
-1. Clone this repository
-2. Open a terminal in the project folder
-3. Install project with `vue` (Vue-CLI)
-    * Select `Default ([Vue 3] babel, eslint)`
+### Setup front stack
+
+1. Install project with Vite CLI
+    * Select `Vue` as the framework
+    * Select `JavaScript` as the variant
 ```bash
-vue create weather-app
+npm init vite@latest weather-app
 cd weather-app
 ```
-1. Install `Quasar` and `Sass` dependencies
-    * Here are the options I chose:</br><img src="assets/quasar_prefs.png" alt="Dont hesitate to aks for help if you don't know what to choose when configuring" width="500px" />
-    * Both `material icon` and `fontawesome` are very good icon libraries.
+2. Install `Quasar` and `Sass` dependencies
 ```bash
-vue add quasar
+npm install quasar @quasar/extras
+npm install -D @quasar/vite-plugin sass@1.32.0
 ```
-1. Add `Axios`
-    * If you get this error: `error  'options' is defined but never used` go to [axios.js](weather-app/src/plugins/axios.js) to line 43 and add `options;` on the first line of the function.
-```bash
-vue add axios
+1. Go to `weather-app/src/main.js` and paste the following:
+```js
+import { createApp } from 'vue'
+
+import { Quasar } from 'quasar'
+import quasarIconSet from 'quasar/icon-set/svg-fontawesome-v6'
+import '@quasar/extras/material-icons/material-icons.css'
+import '@quasar/extras/fontawesome-v6/fontawesome-v6.css'
+import 'quasar/src/css/index.sass'
+
+import App from './App.vue'
+
+const app = createApp(App)
+
+app.use(Quasar, {
+  plugins: {},
+  iconSet: quasarIconSet,
+})
+app.mount('#app')
 ```
-1. Run the project
-```bash
-yarn serve
+4. Go to `weather-app/vite.config.js` and paste the following:
+```js
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import { quasar, transformAssetUrls } from '@quasar/vite-plugin'
+
+export default defineConfig({
+  plugins: [
+    vue({
+      template: { transformAssetUrls }
+    }),
+    quasar({
+      sassVariables: 'src/styles/quasar-variables.sass'
+    }),
+  ],
+})
+```
+5. Create a new folder named `styles` in `weather-app/src/` and create a new file named `quasar-variables.sass` in it:
+```scss
+$primary   : #1976D2
+$secondary : #26A69A
+$accent    : #9C27B0
+
+$dark      : #1D1D1D
+
+$positive  : #21BA45
+$negative  : #C10015
+$info      : #31CCEC
+$warning   : #F2C037
 ```
 
-After building and <u>[transpiling](https://www.wikiwand.com/en/Source-to-source_compiler)</u>, yarn will host the project on a local server. You can access it by going to [http://localhost:8080](http://localhost:8080) in your browser.
+6. Run the project to check if everything is okay.
+```bash
+npm run dev
+```
 
-_/!\ If your app is running on 8081, you already have something running on 8080, just use the highest one._
+After building and [transpiling](https://www.wikiwand.com/en/Source-to-source_compiler), vite will host the project on a local server. You can access it by going to [localhost:5173](http://localhost:5173) in your browser.
 
 
 
@@ -81,49 +132,201 @@ You just got bombarded with files and folders, don't worry, we will go trough th
 
 ### The `weather-app` folder
 ```c
-├── public           // This folder just defines the index.html file and some related elements.
-├── src              // [see below]
-├── .gitignore       // It defines files which you don't wan't to push.
-├── babel.config.js  // Babel is the transpiler in question that translates Vue.js to JavaScript. You can configure it here.
-├── jsconfig.json    // Defines configuration for javascript. This is not too known but you can customize your JS.
-├── package.json     // Defined the project. We can find useful information and packages here.
-├── vue.config.js    // Defines configuration for Vue.js. You can customize your Vue.js here.
-└── yarn.lock        // Defines some information about package versions. You don't need to worry about it.
+├── public/           // This folder just defines the index.html file and some related elements.
+├── src/              // [see below]
+├── .gitignore        // It defines files which you don't wan't to push.
+├── package-lock.json // Defines some information about package versions. You don't need to worry about it.
+├── package.json      // Defined the project. We can find useful information and packages here.
+└── vite.config.js    // Defines the configuration of Vite. You can customize it here.
 ```
 
 ### The `src` folder
 ```c
-├── assets           // Images and any other assets are defined here
-├── components       // All the components of the project are defined here, components are the building blocks of an app.
-├── styles           // Stylesheets are defined here. We will be using Sass. You can also find default quasar styles.
+├── assets/          // Images and any other assets are defined here
+├── components/      // All the components of the project are defined here, components are the building blocks of an app.
 ├── App.vue          // This is the main file of the project.
 ├── main.js          // This is the entry point of the project. It defines the Vue.js instance and links modules.
-└── quasar-user-options.js  // Defines the options for Quasar. You can customize it here.
+└── style.css        // Stylesheets are defined here. We will be using Sass. You can also find default quasar styles.
 ```
-
-As you can see this is pretty close to a basic JS/CSS/HTML project with extra steps.
-
-Take a look at [App.vue](weather-app/src/App.vue) and [HelloWorld.vue](weather-app/src/components/HelloWorld.vue) and try to play around with the vue syntax, get to know it.
-
-_/!\ You are currently in hot reload mode because `yarn serve` is running, this means each save you make to your files will be applied to `localhost:8080`_
 
 
 
 ## Let's get to work
 
-When you are comfortable with the syntax, delete `HelloWorld.vue` and delete the contents of `App.vue` and write only the necessary code:
-
+Delete `components/HelloWorld.vue` and paste the following in `App.vue` :
 ```html
 <template>
   <q-layout view="lHh Lpr lFf">
-    <!-- ... -->
+
+    <!-- Documentation q-input: https://quasar.dev/vue-components/input -->
+    <q-input
+      class="text-h6"
+      filled
+      outlined
+      v-model="city"
+      placeholder="Ville (ex: Paris)"
+      @keydown.enter.prevent="callApi"
+    >
+        <template v-slot:append>
+          <!-- Documentation q-btn: https://quasar.dev/vue-components/button -->
+          <q-btn round flat icon="fas fa-magnifying-glass" @click="callApi"
+          />
+        </template>
+      </q-input>
   </q-layout>
 </template>
 
 <script>
 export default {
   name: 'App',
-  // ...
+
+  data() {
+    return {
+      data: {},
+      apiKey: '64d396add46be7a89c3e5a2fdd1ace91',
+      corsProxy: 'https://cors-anywhere.herokuapp.com/',
+    }
+  },
+
+  methods: {
+    async callApi(newCity) {
+      if (newCity !== '') {
+        const request = `${this.corsProxy}api.openweathermap.org/data/2.5/weather?q=${this.city}&units=metric&appid=${this.apiKey}`;
+        const options = {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        };
+
+        this.data = await fetch(request, options)
+          .then((res) => res.json())
+          .then((data) => data)
+          .catch((err) => {
+              console.log(err);
+          });
+        console.log(this.data);
+      }
+    }
+  }
 }
 </script>
 ```
+
+This is the base code on which you will work, launch it with vite `npm run dev` and put the name of a city in the search bar. You should see the weather data of the city you entered.
+
+## Let's make it look good
+
+Now that you have the data, let's make it look good. We will use the [Quasar framework](https://quasar.dev/).
+Quasar components always start with `q-` they are just html blocks that have been pre-coded with all the essential customisations.
+
+Start by building your `<template>` if you want to insert a variable for example data.something inside the `<template>` you can use `<div>{{ data.something }}</div>`.
+
+Now add some `<styles>`, we are doing styles with Sass, the main differences is that you don't need to add `;` and `{}`. You can also indent your styles. Instead of doing :
+```css
+div {
+  background-color: red;
+  height: 200px;
+}
+```
+You would do:
+```scss
+div
+  background-color: red
+  height: 200px
+```
+
+Take a look at what are components, you might be able to re-use code and make your code more readable.
+
+### First component
+
+To teach you about componets we will do a first one together.
+Let's create a `myStat.vue` file in the `src/components/` folder (This component will show a numerical value and an icon):
+```html
+<template><template>
+  <div class="my-temp q-ma-md column justify-end items-center bg-white">
+    <div class="my-temp__value">
+      {{ value }}°C
+    </div>
+    <div class="my-temp__icon">
+      <img
+        :src="'https://openweathermap.org/img/wn/' + weather.icon + '@2x.png'"
+        :alt="weather.description" />
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'MyTemperature',
+
+  props: {
+    value: {
+      type: Number,
+      default: 0,
+    },
+    weather: {
+      type: Object,
+      default: {},
+    }
+  }
+}
+</script>
+
+<style scoped lang="sass">
+.my-temp
+  width: 100px
+  height: 100px
+  border-radius: 10px
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2)
+
+  &__value
+    font-size: 1.25rem
+    font-weight: 700
+
+  &__icon
+    height: 60px
+    img
+      height: 100%
+</style>
+```
+
+Go back to `App.vue`, we first need to link our component to our App in the `<script>` tag:
+```js
+import myTemperature from './components/myTemperature.vue'; // Import it
+export default {
+  name: 'App',
+
+  components: { // Define it
+    myTemperature,
+  },
+
+  //...
+}
+```
+
+Now we can use it in our `<template>`:
+```html
+<q-input><!-- ... --></q-input>
+<my-temperature
+  v-if="data"
+  :value="Math.round(data.main.temp)"
+  :weather="data.weather[0]">
+/>
+```
+
+You should get something like this:\
+<img src="./assets/app.png" width="300" />
+
+Keep going, your objective now is to make it look good, you are free to use anything you want to achieve this goal.
+
+Here are some ideas:
+- Add color
+- Add icons
+- Make it responsive!
+- Adding a button to get the weather of the user's current location.
+- Adding a button to get the weather of a random city.
+- Adding a loading animation while the API call is being made. (Take a look at the q-btn and/or q-spinner documentation)
+- Implementing a custom background image by city name using the [Unsplash API](https://unsplash.com/developers) to get a random image of the city we are looking for.
+- Switch between °C, °F and K.
+- ...
