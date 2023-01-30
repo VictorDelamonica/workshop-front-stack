@@ -45,8 +45,11 @@ export default {
   border-radius: 10px
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2)
 
-  &__value
+  &__name
     font-size: 1.25rem
+    font-weight: 700
+
+  &__value
     font-weight: 700
 
   &__icon

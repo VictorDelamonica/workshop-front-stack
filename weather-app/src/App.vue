@@ -7,7 +7,7 @@
         filled
         outlined
         v-model="city"
-        placeholder="Ville (ex: Paris)"
+        placeholder="Ville/City (ex: Nice)"
         @keydown.enter.prevent="callApi"
     >
       <template v-slot:append>
