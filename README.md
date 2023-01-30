@@ -183,7 +183,7 @@ export default {
 
   data() {
     return {
-      data: {},
+      data: null,
       apiKey: '64d396add46be7a89c3e5a2fdd1ace91',
       corsProxy: 'https://cors-anywhere.herokuapp.com/',
     }
@@ -242,7 +242,7 @@ div
 
 To teach you about componets we will do a first one together. They will enable you to re-use code and make your code more readable.
 
-Let's create a `myStat.vue` file in the `src/components/` folder (This component will show a numerical value and an icon):
+Let's create a `myTemperature.vue` file in the `src/components/` folder (This component will show a numerical value and an icon):
 ```html
 <template>
   <div class="my-temp q-ma-md column justify-end items-center bg-white">
